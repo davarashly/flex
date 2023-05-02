@@ -7,7 +7,6 @@ RUN yarn
 
 COPY src/ ./
 
-RUN yarn build
+RUN npm run build --configuration=production
 
-EXPOSE 80
 CMD ["yarn", "start"]

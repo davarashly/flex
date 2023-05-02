@@ -1,0 +1,16 @@
+<div class="row" *ngIf="!!(users$ | async)?.length">
+  <div
+    *ngFor="let user of users$ | async"
+    class="col-sm-6 col-md-4 col-lg-3 mb-4 d-flex flex-column flex-grow-1"
+  >
+    <app-user
+      [user]="user"
+      class="d-flex flex-grow-1 flex-column flex-sm-row"
+    />
+  </div>
+
+  <div
+    *ngFor="let _ of usersCount | range"
+    class="col-sm-6 col-md-4 col-lg-3 d-none d-sm-block"
+  ></div>
+</div>

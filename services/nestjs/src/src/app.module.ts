@@ -8,7 +8,7 @@ import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin
 
 @Module({
   imports: [
-    MongooseModule.forRoot("mongodb://mongodb:27017"),
+    MongooseModule.forRoot("mongodb://mongodb:27017/flex"),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: false,

@@ -7,7 +7,4 @@ RUN yarn
 
 COPY src/ ./
 
-RUN yarn build
-
-EXPOSE 80
-CMD ["yarn", "watch"]
+CMD ["yarn", "start:dev"]

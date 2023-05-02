@@ -1,8 +1,10 @@
 import { Schema, Prop, SchemaFactory } from "@nestjs/mongoose"
 import { Document } from "mongoose"
+import { IUser } from "../user.interface"
+import { AccessLevel } from "../../common/enums/accessLevel"
 
 @Schema()
-export class User extends Document {
+export class User extends Document implements Omit<IUser, "_id"> {
   @Prop({ required: true })
   fullName: string
 
@@ -12,14 +14,14 @@ export class User extends Document {
   @Prop({ required: true })
   address: string
 
-  @Prop({ required: true })
-  acl: string
+  @Prop({ required: true, enum: Object.values(AccessLevel) })
+  acl: AccessLevel
+
+  @Prop()
+  avatar?: string
 
   @Prop({ required: true, type: { lat: Number, lng: Number } })
-  homeLocation: {
-    lat: number
-    lng: number
-  }
+  homeLocation: IUser["homeLocation"]
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

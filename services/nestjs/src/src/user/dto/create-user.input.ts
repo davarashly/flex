@@ -1,29 +1,33 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
-
+import { InputType, Int, Field } from "@nestjs/graphql"
+import { IUser } from "../user.interface"
+import { AccessLevel } from "../../common/enums/accessLevel"
 
 @InputType()
 class HomeLocationInput {
   @Field()
-  lat: number;
+  lat: number
 
   @Field()
-  lng: number;
+  lng: number
 }
 
 @InputType()
-export class CreateUserInput {
+export class CreateUserInput implements Omit<IUser, "_id"> {
   @Field()
-  fullName: string;
+  fullName: string
 
   @Field()
-  email: string;
+  email: string
 
   @Field()
-  address: string;
+  address: string
 
   @Field()
-  acl: string;
+  acl: AccessLevel
+
+  @Field({ nullable: true })
+  avatar?: string
 
   @Field(() => HomeLocationInput)
-  homeLocation: HomeLocationInput;
+  homeLocation: HomeLocationInput
 }

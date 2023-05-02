@@ -1,4 +1,6 @@
 import { ObjectType, Field, Int } from "@nestjs/graphql"
+import { IUser } from "../user.interface"
+import { AccessLevel } from "../../common/enums/accessLevel"
 
 @ObjectType()
 export class HomeLocation {
@@ -10,7 +12,7 @@ export class HomeLocation {
 }
 
 @ObjectType()
-export class User {
+export class User implements IUser {
   @Field()
   _id: string
 
@@ -24,7 +26,10 @@ export class User {
   address: string
 
   @Field()
-  acl: string
+  acl: AccessLevel
+
+  @Field({ nullable: true })
+  avatar?: string
 
   @Field(() => HomeLocation)
   homeLocation: HomeLocation
