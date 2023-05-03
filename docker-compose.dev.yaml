@@ -6,6 +6,8 @@ services:
       context: ./services/nestjs
       dockerfile: dev.Dockerfile
     container_name: nestjs
+    depends_on:
+      - mongodb
     volumes:
       - ./services/nestjs/src/src:/app/src
 
@@ -20,9 +22,12 @@ services:
   mongodb:
     image: mongo:4.4
     container_name: mongodb
-#    environment:
-#      MONGO_INITDB_ROOT_USERNAME: root
-#      MONGO_INITDB_ROOT_PASSWORD: example
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassrootword
+    volumes:
+      - ./services/mongodb/cfg/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - mongo_data:/data/db
     ports:
       - '27017:27017'
 
@@ -32,4 +37,11 @@ services:
     ports:
       - '8084:8084'
     volumes:
-      - ./services/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./services/nginx/cfg/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - angular
+      - nestjs
+      - mongodb
+
+volumes:
+  mongo_data:

@@ -5,10 +5,12 @@ import { GraphQLModule } from "@nestjs/graphql"
 import { UserModule } from "./user/user.module"
 import * as path from "path"
 import { ApolloServerPluginLandingPageLocalDefault } from "@apollo/server/plugin/landingPage/default"
+import { ConfigModule } from "@nestjs/config"
 
 @Module({
   imports: [
-    MongooseModule.forRoot("mongodb://mongodb:27017/flex"),
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.MONGODB_URI),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: false,
