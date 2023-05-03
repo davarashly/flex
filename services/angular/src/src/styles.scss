@@ -1,1 +1,12 @@
+$primary: #3d4e61;
+
 @import "bootstrap";
+
+.map-container {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 500px;
+
+  display: flex;
+  flex: 1;
+}

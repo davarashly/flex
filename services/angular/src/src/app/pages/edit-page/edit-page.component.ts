@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router"
 import { UsersService } from "../../services/users.service"
 import { AccessLevel, IUser } from "../../models/user"
 import { FormGroup, FormControl, Validators } from "@angular/forms"
-import { catchError, of } from "rxjs"
+import { catchError, Observable, of } from "rxjs"
 
 @Component({
   selector: "app-edit-page",
@@ -20,13 +20,15 @@ export class EditPageComponent implements OnInit {
     private router: Router,
     private usersService: UsersService,
   ) {
-    const requiredValidator = this.user ? [Validators.required] : []
+    const requiredValidator = !this.user
+      ? Validators.required
+      : Validators.nullValidator
 
     this.userForm = new FormGroup({
       fullName: new FormControl(this.user?.fullName || "", requiredValidator),
       email: new FormControl(
         this.user?.email || "",
-        requiredValidator.concat(Validators.email),
+        Validators.compose([requiredValidator, Validators.email]),
       ),
       address: new FormControl(this.user?.address || "", requiredValidator),
       acl: new FormControl(
@@ -80,13 +82,20 @@ export class EditPageComponent implements OnInit {
     if (this.userForm.valid) {
       const userData: IUser = this.userForm.value
 
+      let actionObservable: Observable<IUser>
+
       if (this.user) {
-        this.usersService
-          .updateUser({ ...userData, _id: this.user._id })
-          .subscribe()
+        actionObservable = this.usersService.updateUser({
+          ...userData,
+          _id: this.user._id,
+        })
       } else {
-        this.usersService.createUser(userData).subscribe()
+        actionObservable = this.usersService.createUser(userData)
       }
+
+      actionObservable.subscribe(async () => {
+        // await this.router.navigate(["/"])
+      })
     }
   }
 }

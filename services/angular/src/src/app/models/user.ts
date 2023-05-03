@@ -4,8 +4,6 @@ export enum AccessLevel {
   VIEWER = "vcc",
 }
 
-
-
 export interface IUser {
   _id: string
   fullName: string

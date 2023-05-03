@@ -5,19 +5,19 @@ import { AccessLevel } from "../../common/enums/accessLevel"
 
 @Schema()
 export class User extends Document implements Omit<IUser, "_id"> {
-  @Prop({ required: true })
+  @Prop({ type: String, required: true })
   fullName: string
 
-  @Prop({ required: true, unique: true })
+  @Prop({ type: String, required: true, unique: true })
   email: string
 
-  @Prop({ required: true })
+  @Prop({ type: String, required: true })
   address: string
 
-  @Prop({ required: true, enum: Object.values(AccessLevel) })
+  @Prop({ type: String, required: true, enum: Object.values(AccessLevel) })
   acl: AccessLevel
 
-  @Prop()
+  @Prop({ type: String })
   avatar?: string
 
   @Prop({ required: true, type: { lat: Number, lng: Number } })

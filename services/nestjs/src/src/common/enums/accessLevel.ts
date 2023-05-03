@@ -1,5 +1,5 @@
 export enum AccessLevel {
-  ADMIN = 'acc',
-  EDITOR = 'ecc',
-  VIEWER = 'vcc',
+  ADMIN = "acc",
+  EDITOR = "ecc",
+  VIEWER = "vcc",
 }

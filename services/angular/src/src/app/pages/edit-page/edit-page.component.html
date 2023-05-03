@@ -10,6 +10,7 @@
           id="fullName"
           formControlName="fullName"
         />
+        <div class="invalid-feedback">Please provide a full name.</div>
       </div>
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
@@ -19,6 +20,7 @@
           id="email"
           formControlName="email"
         />
+        <div class="invalid-feedback">Please provide a valid e-mail.</div>
       </div>
       <div class="mb-3">
         <label for="address" class="form-label">Address</label>
@@ -28,9 +30,10 @@
           id="address"
           formControlName="address"
         />
+        <div class="invalid-feedback">Please provide an address.</div>
       </div>
       <div class="mb-3">
-        <label for="acl" class="form-label">ACL</label>
+        <label for="acl" class="form-label">Access Level</label>
         <select class="form-select" id="acl" formControlName="acl">
           <option *ngFor="let entry of AccessLevelEnum" [value]="entry[1]">
             {{ entry[0] | titlecase }}
@@ -70,7 +73,14 @@
         <button type="submit" class="btn btn-primary">
           {{ user ? "Update" : "Create" }} User
         </button>
-        <button *ngIf="user" type="submit" class="btn btn-danger ms-3" (click)="onRemove($event)">Remove User</button>
+        <button
+          *ngIf="user"
+          type="submit"
+          class="btn btn-danger ms-3"
+          (click)="onRemove($event)"
+        >
+          Remove User
+        </button>
       </div>
     </form>
   </div>

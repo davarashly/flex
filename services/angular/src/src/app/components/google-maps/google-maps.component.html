@@ -1,0 +1,26 @@
+<div *ngIf="apiLoaded | async" class="d-flex flex-column flex-grow-1">
+  <google-map [options]="options" class="d-flex flex-column flex-grow-1">
+    <ng-container *ngFor="let user of users | async">
+      <map-marker
+        [position]="user.homeLocation"
+        (mapClick)="openInfoWindow(marker, infoWindow)"
+        #marker="mapMarker"
+      >
+        <map-info-window #infoWindow="mapInfoWindow">
+          <img
+            [src]="'assets/img/users/' + (user.avatar || 'avatar.svg')"
+            [alt]="user.fullName + '\'s Avatar'"
+            class="rounded-circle mx-auto mb-1 d-block"
+            width="50"
+            height="50"
+            (error)="onAvatarError($event)"
+          />
+          <p class="mb-1">
+            <b>{{ user.fullName }}</b>
+          </p>
+          <p>{{ user.email }}</p>
+        </map-info-window>
+      </map-marker>
+    </ng-container>
+  </google-map>
+</div>
