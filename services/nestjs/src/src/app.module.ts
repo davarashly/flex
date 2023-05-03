@@ -10,7 +10,9 @@ import { ConfigModule } from "@nestjs/config"
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(process.env.MONGODB_URI),
+    MongooseModule.forRoot(
+      process.env.MONGODB_URI || "mongodb://flex:fooba@mongodb:27017/flex",
+    ),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       playground: false,
